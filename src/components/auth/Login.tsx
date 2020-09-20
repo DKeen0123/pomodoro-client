@@ -1,7 +1,7 @@
 import React from 'react';
 import Axios from 'axios';
 import UserContext from '../../contexts/UserContext';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import ErrorNotice from '../ui/ErrorNotice';
 
 const Login = () => {
@@ -34,51 +34,63 @@ const Login = () => {
   };
 
   return (
-    <>
-      <h2>Sign Up</h2>
-      {error && (
-        <ErrorNotice message={error} clearError={() => setError(null)} />
-      )}
-      <div className="w-full max-w-md bg-gray-800">
-        <form
-          onSubmit={submit}
-          action=""
-          className=" bg-white shadow-md rounded px-8 py-8 pt-8"
-        >
-          <div className="px-4 pb-4">
-            <label htmlFor="email" className="text-sm block font-bold  pb-2">
-              EMAIL ADDRESS
-            </label>
-            <input
-              type="email"
-              name="email"
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline border-blue-300 "
-              placeholder="Johnbull@example.com"
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </div>
-          <div className="px-4 pb-4">
-            <label htmlFor="password" className="text-sm block font-bold pb-2">
-              PASSWORD
-            </label>
-            <input
-              type="password"
-              name="email"
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline border-blue-300"
-              placeholder="Enter your password"
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
-          <div>
+    <div className="w-full flex flex-wrap">
+      <div className="w-full md:w-1/2 flex flex-col">
+        {error && (
+          <ErrorNotice message={error} clearError={() => setError(null)} />
+        )}
+        <div className="flex flex-col justify-center md:justify-start my-auto pt-8 md:pt-0 px-8 md:px-24 lg:px-32">
+          <p className="text-center text-3xl">Welcome back.</p>
+          <form className="flex flex-col pt-3 md:pt-8" onSubmit={submit}>
+            <div className="flex flex-col pt-4">
+              <label htmlFor="email" className="text-lg">
+                Email
+              </label>
+              <input
+                onChange={(e) => setEmail(e.target.value)}
+                type="email"
+                id="email"
+                placeholder="your@email.com"
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline"
+              />
+            </div>
+
+            <div className="flex flex-col pt-4">
+              <label htmlFor="password" className="text-lg">
+                Password
+              </label>
+              <input
+                onChange={(e) => setPassword(e.target.value)}
+                type="password"
+                id="password"
+                placeholder="Password"
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline"
+              />
+            </div>
+
             <input
               type="submit"
               value="Log In"
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              className="bg-blue-500 hover:bg-blue-700 cursor-pointer text-white font-bold text-lg hover:bg-gray-700 p-2 mt-8"
             />
+          </form>
+          <div className="text-center pt-12 pb-12">
+            <p>
+              Don't have an account?{' '}
+              <Link to="/signup" className="underline font-semibold">
+                Register here.
+              </Link>
+            </p>
           </div>
-        </form>
+        </div>
       </div>
-    </>
+      <div className="w-1/2 shadow-2xl">
+        <img
+          className="object-cover w-full h-screen hidden md:block"
+          src="https://source.unsplash.com/IXUM4cJynP0"
+        />
+      </div>
+    </div>
   );
 };
 

@@ -21,11 +21,26 @@ const AuthOptions = () => {
   return (
     <nav>
       {userData.user ? (
-        <button onClick={logOut}>Log out</button>
+        <button
+          className="cursor-pointer bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          onClick={logOut}
+        >
+          Log out
+        </button>
       ) : (
         <>
-          <button onClick={signUp}>Sign Up</button>
-          <button onClick={logIn}>Log In</button>
+          <button
+            className="cursor-pointer text-white hover:text-gray-300 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            onClick={signUp}
+          >
+            Sign Up
+          </button>
+          <button
+            className="cursor-pointer bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            onClick={logIn}
+          >
+            Log In
+          </button>
         </>
       )}
     </nav>
