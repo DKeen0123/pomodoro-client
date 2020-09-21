@@ -1,2 +1,4 @@
 export const API_HOST =
-  process.env.REACT_APP_API_HOST || 'http://localhost:5000';
+  process.env.NODE_ENV === 'production'
+    ? 'https://enigmatic-temple-91598.herokuapp.com'
+    : 'http://localhost:5000';
