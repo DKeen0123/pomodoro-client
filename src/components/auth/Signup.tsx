@@ -116,7 +116,7 @@ const Signup = () => {
       </div>
       <div className="w-1/2 shadow-2xl">
         <img
-          alt="welcome image"
+          alt="welcome colorful shapes"
           className="object-cover w-full h-screen hidden md:block"
           src="https://source.unsplash.com/IXUM4cJynP0"
         />
