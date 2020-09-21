@@ -3,6 +3,7 @@ import Axios from 'axios';
 import UserContext from '../../contexts/UserContext';
 import { useHistory, Link } from 'react-router-dom';
 import ErrorNotice from '../ui/ErrorNotice';
+import { API_HOST } from '../../constants/api';
 
 const Login = () => {
   const [email, setEmail] = React.useState<undefined | string>();
@@ -16,10 +17,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const user = { email, password };
-      const logInRes = await Axios.post(
-        'http://localhost:5000/users/login',
-        user
-      );
+      const logInRes = await Axios.post(`${API_HOST}/users/login`, user);
       if (setUserData) {
         setUserData({
           token: logInRes.data.token,

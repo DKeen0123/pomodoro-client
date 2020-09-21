@@ -6,6 +6,7 @@ import Home from './components/pages/Home';
 import Login from './components/auth/Login';
 import Signup from './components/auth/Signup';
 import UserContext, { UserDataProps } from './contexts/UserContext';
+import { API_HOST } from './constants/api';
 
 function App() {
   const [userData, setUserData] = React.useState<UserDataProps>({
@@ -21,13 +22,13 @@ function App() {
         token = '';
       }
       const tokenRes = await Axios.post(
-        'http://localhost:5000/users/tokenIsValid',
+        `${API_HOST}/users/tokenIsValid`,
         null,
         { headers: { 'x-auth-token': token } }
       );
 
       if (tokenRes.data) {
-        const userRes = await Axios.get('http://localhost:5000/users/', {
+        const userRes = await Axios.get(`${API_HOST}/users/`, {
           headers: { 'x-auth-token': token },
         });
         setUserData({
