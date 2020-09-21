@@ -1,5 +1,16 @@
 import React from 'react';
+import Timer from '../ui/Timer';
+const Home = () => {
+  const [startCountdown, setStartCountdown] = React.useState(false);
 
-const Home = () => <div>Home</div>;
+  return (
+    <>
+      <Timer countdownFromInSeconds={488} startCountdown={startCountdown} />
+      <button onClick={() => setStartCountdown((prevState) => !prevState)}>
+        {startCountdown ? 'stop' : 'start'}
+      </button>
+    </>
+  );
+};
 
 export default Home;
