@@ -22,7 +22,7 @@ const AuthOptions = () => {
     <nav>
       {userData.user ? (
         <button
-          className="cursor-pointer bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          className="cursor-pointer bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
           onClick={logOut}
         >
           Log out

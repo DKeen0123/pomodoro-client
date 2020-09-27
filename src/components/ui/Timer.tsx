@@ -42,7 +42,7 @@ const Timer: React.FC<Props> = ({
   }, [countdownFromInSeconds, setCountdownFromInSeconds, startCountdown]);
 
   return (
-    <div className="text-center mb-4 text-5xl font-bold text-gray-800">
+    <div className="text-center mb-4 text-5xl font-bold text-gray-700">
       <span>{minutes}</span>:
       <span>{seconds < 10 ? `0${seconds}` : seconds}</span>
     </div>

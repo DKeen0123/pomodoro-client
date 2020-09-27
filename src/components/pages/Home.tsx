@@ -8,7 +8,18 @@ const Home = () => {
   const [countdownFromInSeconds, setCountdownFromInSeconds] = React.useState(
     1500
   );
+  const [timerEnded, setTimerEnded] = React.useState(false);
   const [showTimer, setShowTimer] = React.useState(false);
+
+  React.useEffect(() => {
+    if (timerEnded) {
+      // api req to add pomo
+    }
+  }, [timerEnded]);
+
+  React.useEffect(() => {
+    setTimerEnded(true);
+  }, [countdownFromInSeconds]);
 
   const handleStartFocusing = () => {
     setStartCountdown(true);
@@ -37,7 +48,7 @@ const Home = () => {
             icon={faCog}
           />
         </div>
-        <div className="bg-blue-100 p-4 rounded-b-md">
+        <div className="bg-indigo-100 p-4 rounded-b-md">
           {showTimer ? (
             <>
               <Timer
@@ -46,7 +57,7 @@ const Home = () => {
                 startCountdown={startCountdown}
               />
               <button
-                className="bg-blue-600 p-2 text-white hover:bg-blue-700 w-full rounded-md text-2xl font-bold"
+                className="bg-indigo-600 p-2 text-white hover:bg-indigo-700 w-full rounded-md text-2xl font-bold"
                 onClick={() => setStartCountdown((prevState) => !prevState)}
               >
                 {startCountdown ? 'Pause' : 'Start'}
