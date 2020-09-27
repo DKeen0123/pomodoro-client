@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.30",
+    "@fortawesome/free-solid-svg-icons": "^5.14.0",
+    "@fortawesome/react-fontawesome": "^0.1.11",
     "@fullhuman/postcss-purgecss": "^3.0.0",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
@@ -13,18 +16,19 @@
     "@types/react": "^16.9.0",
     "@types/react-dom": "^16.9.0",
     "@types/react-router-dom": "^5.1.5",
+    "autoprefixer": "^9.8.6",
     "axios": "^0.20.0",
+    "postcss-cli": "^7.1.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
     "tailwindcss": "^1.8.10",
-    "typescript": "~3.7.2",
-    "autoprefixer": "^9.8.6",
-    "postcss-cli": "^7.1.2"
+    "typescript": "~3.7.2"
   },
   "scripts": {
     "build:style": "postcss src/styles/index.css -o src/styles/tailwind.css",
+    "watch": "postcss src/styles/index.css -o src/styles/tailwind.css --watch",
     "start": "npm run build:style && react-scripts start",
     "build": "npm run build:style && react-scripts build",
     "test": "react-scripts test",
@@ -44,5 +48,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "stylelint": "^13.7.2",
+    "stylelint-config-standard": "^20.0.0"
   }
 }

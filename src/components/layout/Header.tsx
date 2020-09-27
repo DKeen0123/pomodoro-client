@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import AuthOptions from '../auth/AuthOptions';
 
 const Header = () => (
-  <nav className="bg-gray-800 p-2 mt-0 w-full z-10 top-0">
+  <nav className="bg-blue-500 p-2 mt-0 w-full z-10 top-0">
     <div className="container mx-auto flex flex-wrap items-center">
       <div className="flex w-full md:w-1/2 justify-center md:justify-start text-white font-extrabold">
         <Link

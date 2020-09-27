@@ -98,11 +98,7 @@ const Signup = () => {
               />
             </div>
 
-            <input
-              type="submit"
-              value="Sign Up"
-              className="bg-blue-500 hover:bg-blue-700 cursor-pointer text-white font-bold text-lg p-2 mt-8"
-            />
+            <input type="submit" value="Sign Up" className="button mt-8" />
           </form>
           <div className="text-center pt-12 pb-12">
             <p>
