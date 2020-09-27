@@ -13,11 +13,11 @@ const Timer: React.FC<Props> = ({ countdownFromInSeconds, startCountdown }) => {
     countdownFromInSeconds - minutes * 60
   );
 
-  const countdownSeconds = () => {
-    return setInterval(() => setSeconds(seconds - 1), 1000);
-  };
-
   React.useEffect(() => {
+    const countdownSeconds = () => {
+      return setInterval(() => setSeconds(seconds - 1), 1000);
+    };
+
     if (startCountdown) {
       if (seconds > 0) {
         const reduceSeconds = countdownSeconds();

@@ -101,7 +101,7 @@ const Signup = () => {
             <input
               type="submit"
               value="Sign Up"
-              className="bg-blue-500 hover:bg-blue-700 cursor-pointer text-white font-bold text-lg hover:bg-gray-700 p-2 mt-8"
+              className="bg-blue-500 hover:bg-blue-700 cursor-pointer text-white font-bold text-lg p-2 mt-8"
             />
           </form>
           <div className="text-center pt-12 pb-12">
