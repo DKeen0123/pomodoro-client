@@ -1,33 +1,77 @@
 import React from 'react';
+import Axios from 'axios';
+import { API_HOST } from '../../constants/api';
+import UserContext from '../../contexts/UserContext';
 import Timer from '../ui/Timer';
+import ErrorNotice from '../ui/ErrorNotice';
+import ProjectList from '../ui/ProjectList';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClock, faCog } from '@fortawesome/free-solid-svg-icons';
 
 const Home = () => {
+  // original amount, reset when user restarts timer
+  const { userData } = React.useContext(UserContext);
   const [startCountdown, setStartCountdown] = React.useState(false);
+  const [
+    originalCountdownFromInSeconds,
+    setOriginalCountdownFromInSeconds,
+  ] = React.useState(1500);
   const [countdownFromInSeconds, setCountdownFromInSeconds] = React.useState(
-    1500
+    originalCountdownFromInSeconds
   );
   const [timerEnded, setTimerEnded] = React.useState(false);
   const [showTimer, setShowTimer] = React.useState(false);
+  const [currentProject, setCurrentProject] = React.useState('');
+  const [error, setError] = React.useState<null | string>(null);
 
   React.useEffect(() => {
-    if (timerEnded) {
-      // api req to add pomo
+    if (countdownFromInSeconds === 0) {
+      setTimerEnded(true);
     }
-  }, [timerEnded]);
+  }, [countdownFromInSeconds]);
+
+  React.useEffect(() => {});
 
   React.useEffect(() => {
-    setTimerEnded(true);
-  }, [countdownFromInSeconds]);
+    const createPomo = async () => {
+      try {
+        await Axios.post(
+          `${API_HOST}/pomodoros`,
+          {
+            name: currentProject,
+            lengthInSeconds: originalCountdownFromInSeconds,
+          },
+          {
+            headers: { 'x-auth-token': userData.token },
+          }
+        );
+      } catch (err) {
+        err.response.data.msg && setError(err.response.data.msg);
+      }
+    };
+
+    if (timerEnded) {
+      createPomo();
+      setTimerEnded(false);
+    }
+  }, [
+    timerEnded,
+    currentProject,
+    userData.token,
+    originalCountdownFromInSeconds,
+  ]);
 
   const handleStartFocusing = () => {
     setStartCountdown(true);
     setShowTimer(true);
+    setOriginalCountdownFromInSeconds(countdownFromInSeconds);
   };
 
   return (
     <div className="sm:mx-auto mx-2 my-0 lg:w-5/12 md:w-8/12 mt-12 sm:w-10/12">
+      {error && (
+        <ErrorNotice message={error} clearError={() => setError(null)} />
+      )}
       <div className="shadow-md rounded-md">
         <div className="bg-white p-4 flex justify-between rounded-t-md ">
           <FontAwesomeIcon
@@ -97,6 +141,7 @@ const Home = () => {
           )}
         </div>
       </div>
+      <ProjectList setCurrentProject={setCurrentProject} />
     </div>
   );
 };
