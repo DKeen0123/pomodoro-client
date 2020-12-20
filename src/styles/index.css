@@ -21,3 +21,8 @@ body {
 .button:focus {
   @apply outline-none shadow-outline;
 }
+
+.timer {
+  font-feature-settings: 'tnum';
+  font-variant-numeric: tabular-nums;
+}
