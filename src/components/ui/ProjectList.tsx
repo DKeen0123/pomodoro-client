@@ -2,7 +2,8 @@ import React from 'react';
 import Axios from 'axios';
 import { API_HOST } from '../../constants/api';
 import UserContext from '../../contexts/UserContext';
-
+import Project from './Project';
+import ErrorNotice from './ErrorNotice';
 interface Props {
   setCurrentProject: (projectName: string) => void;
 }
@@ -14,14 +15,15 @@ const ProjectList: React.FC<Props> = ({ setCurrentProject }) => {
   const [createProjectInputValue, setCreateProjectInputValue] = React.useState(
     ''
   );
-  const [creatingProject, setCreatingProject] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(false);
+  const [error, setError] = React.useState<null | string>(null);
 
   const handleUpdateProjectInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCreateProjectInputValue(e.target.value);
   };
 
   const handleCreateProject = async () => {
-    setCreatingProject(true);
+    setIsLoading(true);
     try {
       await Axios.post(
         `${API_HOST}/projects`,
@@ -34,9 +36,23 @@ const ProjectList: React.FC<Props> = ({ setCurrentProject }) => {
       );
 
       setCreateProjectInputValue('');
-      setCreatingProject(false);
+      setIsLoading(false);
     } catch (error) {
-      setCreatingProject(false);
+      setIsLoading(false);
+    }
+  };
+
+  const handleDelete = async (projectId: string) => {
+    setIsLoading(true);
+    try {
+      await Axios.delete(`${API_HOST}/projects/${projectId}`, {
+        headers: { 'x-auth-token': userData.token },
+      });
+
+      setIsLoading(false);
+    } catch (error) {
+      setError(error.message);
+      setIsLoading(false);
     }
   };
 
@@ -56,7 +72,7 @@ const ProjectList: React.FC<Props> = ({ setCurrentProject }) => {
     };
 
     getProjects();
-  }, [userData, creatingProject]);
+  }, [userData, isLoading]);
 
   React.useEffect(() => {
     setCurrentProject(projects[0]);
@@ -66,7 +82,10 @@ const ProjectList: React.FC<Props> = ({ setCurrentProject }) => {
   return (
     <div>
       <h1>Projects</h1>
-      {creatingProject ? (
+      {error && (
+        <ErrorNotice message={error} clearError={() => setError(null)} />
+      )}
+      {isLoading ? (
         <div>Loading...</div>
       ) : (
         <>
@@ -84,7 +103,14 @@ const ProjectList: React.FC<Props> = ({ setCurrentProject }) => {
           {projects.length > 0 && (
             <ul>
               {projects.map((project: any) => {
-                return <li key={project._id}>{project.name}</li>;
+                return (
+                  <Project
+                    key={project._id}
+                    project={project}
+                    handleDelete={handleDelete}
+                    isLoading={isLoading}
+                  />
+                );
               })}
             </ul>
           )}
