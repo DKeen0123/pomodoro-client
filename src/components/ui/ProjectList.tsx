@@ -56,6 +56,24 @@ const ProjectList: React.FC<Props> = ({ setCurrentProject }) => {
     }
   };
 
+  const handleComplete = async (projectId: string) => {
+    setIsLoading(true);
+    try {
+      await Axios.patch(
+        `${API_HOST}/projects/${projectId}`,
+        { complete: true },
+        {
+          headers: { 'x-auth-token': userData.token },
+        }
+      );
+
+      setIsLoading(false);
+    } catch (error) {
+      setError(error.message);
+      setIsLoading(false);
+    }
+  };
+
   React.useEffect(() => {
     const getProjects = async () => {
       if (!userData || !userData.token) return;
@@ -65,7 +83,7 @@ const ProjectList: React.FC<Props> = ({ setCurrentProject }) => {
       if (projectsRes.data.length > 0) {
         const formattedProjects = projectsRes.data.filter(
           (project: any) =>
-            project.name !== 'unspecified' || project.complete === false
+            project.name !== 'unspecified' && project.complete === false
         );
         setProjects(formattedProjects);
       }
@@ -108,6 +126,7 @@ const ProjectList: React.FC<Props> = ({ setCurrentProject }) => {
                     key={project._id}
                     project={project}
                     handleDelete={handleDelete}
+                    handleComplete={handleComplete}
                     isLoading={isLoading}
                   />
                 );
